@@ -5,7 +5,6 @@
   <string name="backup_failed_nosd">Kan ikke oprette backup. Backup mappen er ikke tilgængelig.</string>
   <string name="backup_success">Backup gennemført.</string>
   <string name="backup_failed">Backup mislykkedes.</string>
-  <string name="download_stable">Download SeriesGuide</string>
   <string name="migration_header">Migrer til den gratis version</string>
   <string name="migration_description">SeriesGuide X er nu en oplåsnings-nøgle for X funktioner i den gratis version (X Pass). Migrer venligst dine shows til den gratis version af SeriesGuide. Hold X installeret for at oplåse alle funktioner i den gratis version.</string>
   <string name="migration_backup">Tryk nedenfor for at oprette en frisk backup af dine serier.</string>

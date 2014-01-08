@@ -5,7 +5,6 @@
   <string name="backup_failed_nosd">Nu se poate face backup. Folder-ul de backup nu este disponibil.</string>
   <string name="backup_success">Backup reusit.</string>
   <string name="backup_failed">Backup esuat.</string>
-  <string name="download_stable">Descărcați SeriesGuide</string>
   <string name="migration_header">Migrati la versiunea gratuita</string>
   <string name="migration_description">SeriesGuide X este acum o cheie de deblocare a optiunilor X in varianta gratuita (\"X Pass\"). Va rugam sa migrati Serialele in versiunea gratuita a SeriesGuide. Pastrati X instalat pentru a debloca toate optiunile in versiunea gratuita.</string>
   <string name="migration_backup">Atingeti mai jos pentru a creea un backup nou al serialelor dumneavoastra.</string>

@@ -5,7 +5,6 @@
   <string name="backup_failed_nosd">Kan inte skapa en säkerhetskopia. Mappen är inte tillgänglig.</string>
   <string name="backup_success">Säkerhetskopieringen lyckades.</string>
   <string name="backup_failed">Säkerhetskopieringen misslyckades.</string>
-  <string name="download_stable">Hämta SeriesGuide</string>
   <string name="migration_header">Flytta till gratis versionen</string>
   <string name="migration_description">SeriesGuide X är nu upplåsnings nyckel för att nyttja X funktionerna i gratis versionen (\"X livstids pass\"). Var god och flytta dina serier till gratis versionen av SeriesGuide. Behåll X installerad för att låsa upp funktioner i gratis versionen.</string>
   <string name="migration_backup">Klicka nedan för att skapa en ny säkerhetskopia av dina serier.</string>

@@ -5,7 +5,6 @@
   <string name="backup_failed_nosd">Не удается создать резервную копию. Папка резервного копирования не доступна.</string>
   <string name="backup_success">Резервное копирование прошло успешно.</string>
   <string name="backup_failed">Не удалось выполнить резервное копирование.</string>
-  <string name="download_stable">Скачать SeriesGuide</string>
   <string name="migration_header">Перейти на бесплатную версию</string>
   <string name="migration_description">SeriesGuide X — теперь ключ разблокировки для X есть в бесплатной версии (X). Прошу перенести ваши сериалы на бесплатную версию SeriesGuide. Держите X установлена для разблокировки всех функций в бесплатной версии.</string>
   <string name="migration_backup">Нажмите ниже для создания свежей резервной копии ваших сериалов.</string>

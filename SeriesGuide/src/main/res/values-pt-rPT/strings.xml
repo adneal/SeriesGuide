@@ -5,7 +5,6 @@
   <string name="backup_failed_nosd">Erro no backup. A pasta de backup não está disponível.</string>
   <string name="backup_success">Backup bem sucedido.</string>
   <string name="backup_failed">Falha no backup.</string>
-  <string name="download_stable">Download SeriesGuide</string>
   <string name="migration_header">Migrar para a versão gratuita</string>
   <string name="migration_description">O SeriesGuide X passou agora a ser uma chave que serve para desbloquear as funcionalidades X da versão gratuita (Passe Vitalício X). Por favor, migre as suas séries para a versão gratuita do SeriesGuide. Mas mantenha o X instalado para desbloquear todas as funcionalidades da versão gratuita.</string>
   <string name="migration_backup">Prima em baixo para criar um backup actualizado das suas séries.</string>
