@@ -17,10 +17,8 @@
 
 package com.battlelancer.seriesguide;
 
-import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.seriesguide.BuildConfig;
-import com.uwetrottmann.seriesguide.R;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -49,8 +47,6 @@ public class SeriesGuideApplication extends Application {
 
         // Set provider authority
         CONTENT_AUTHORITY = getPackageName() + ".provider";
-
-        SeriesGuidePreferences.THEME = R.style.SeriesGuideTheme;
 
         // Enable StrictMode
         enableStrictMode();

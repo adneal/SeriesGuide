@@ -17,10 +17,12 @@
 
 package com.battlelancer.seriesguide.dataliberation;
 
-import com.google.myjson.Gson;
-import com.google.myjson.JsonIOException;
-import com.google.myjson.stream.JsonWriter;
-
+import android.content.Context;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 import com.battlelancer.seriesguide.dataliberation.model.Episode;
 import com.battlelancer.seriesguide.dataliberation.model.List;
 import com.battlelancer.seriesguide.dataliberation.model.ListItem;
@@ -32,21 +34,12 @@ import com.battlelancer.seriesguide.provider.SeriesContract.ListItemTypes;
 import com.battlelancer.seriesguide.provider.SeriesContract.ListItems;
 import com.battlelancer.seriesguide.provider.SeriesContract.Seasons;
 import com.battlelancer.seriesguide.provider.SeriesContract.Shows;
-import com.battlelancer.seriesguide.settings.AdvancedSettings;
-import com.battlelancer.thetvdbapi.TheTVDB.ShowStatus;
+import com.google.myjson.Gson;
+import com.google.myjson.JsonIOException;
+import com.google.myjson.stream.JsonWriter;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.androidutils.Lists;
 import com.uwetrottmann.seriesguide.R;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -61,7 +54,6 @@ import java.io.OutputStreamWriter;
 public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
 
     public static final String EXPORT_FOLDER = "SeriesGuide";
-    public static final String EXPORT_FOLDER_AUTO = "SeriesGuide" + File.separator + "AutoBackup";
     public static final String EXPORT_JSON_FILE_SHOWS = "sg-shows-export.json";
     public static final String EXPORT_JSON_FILE_LISTS = "sg-lists-export.json";
 
@@ -90,29 +82,25 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
     private OnTaskProgressListener mProgressListener;
     private OnTaskFinishedListener mListener;
     private boolean mIsFullDump;
-    private boolean mIsAutoBackupMode;
 
-    public static File getExportPath(boolean isAutoBackupMode) {
+    public static File getExportPath() {
         return new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                isAutoBackupMode ? EXPORT_FOLDER_AUTO : EXPORT_FOLDER);
+                EXPORT_FOLDER);
     }
 
     /**
      * Same as {@link JsonExportTask} but allows to set parameters.
-     * 
+     *
      * @param isFullDump Whether to also export meta-data like descriptions,
-     *            ratings, actors, etc. Increases file size about 2-4 times.
-     * @param isSilentMode Whether to show result toasts.
+     *                   ratings, actors, etc. Increases file size about 2-4 times.
      */
     public JsonExportTask(Context context, OnTaskProgressListener progressListener,
-            OnTaskFinishedListener listener, boolean isFullDump,
-            boolean isSilentMode) {
+            OnTaskFinishedListener listener, boolean isFullDump) {
         mContext = context.getApplicationContext();
         mProgressListener = progressListener;
         mListener = listener;
         mIsFullDump = isFullDump;
-        mIsAutoBackupMode = isSilentMode;
     }
 
     @Override
@@ -123,7 +111,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         }
 
         // Ensure the export directory exists
-        File path = getExportPath(mIsAutoBackupMode);
+        File path = getExportPath();
         path.mkdirs();
 
         /*
@@ -199,13 +187,6 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
             lists.close();
         }
 
-        if (mIsAutoBackupMode) {
-            // store current time = last backup time
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-            prefs.edit().putLong(AdvancedSettings.KEY_LASTBACKUP, System.currentTimeMillis())
-                    .commit();
-        }
-
         return SUCCESS;
     }
 
@@ -218,21 +199,19 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
-        if (!mIsAutoBackupMode) {
-            int messageId;
-            switch (result) {
-                case SUCCESS:
-                    messageId = R.string.backup_success;
-                    break;
-                case ERROR_STORAGE_ACCESS:
-                    messageId = R.string.backup_failed_nosd;
-                    break;
-                default:
-                    messageId = R.string.backup_failed;
-                    break;
-            }
-            Toast.makeText(mContext, messageId, Toast.LENGTH_LONG).show();
+        int messageId;
+        switch (result) {
+            case SUCCESS:
+                messageId = R.string.backup_success;
+                break;
+            case ERROR_STORAGE_ACCESS:
+                messageId = R.string.backup_failed_nosd;
+                break;
+            default:
+                messageId = R.string.backup_failed;
+                break;
         }
+        Toast.makeText(mContext, messageId, Toast.LENGTH_LONG).show();
 
         if (mListener != null) {
             mListener.onTaskFinished();
@@ -306,7 +285,8 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
                 new String[] {
                         Seasons._ID,
                         Seasons.COMBINED
-                }, null, null, null);
+                }, null, null, null
+        );
 
         if (seasonsCursor == null) {
             return;
@@ -397,8 +377,9 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
                 ListItems.CONTENT_URI, ListItemsQuery.PROJECTION,
                 ListItemsQuery.SELECTION,
                 new String[] {
-                    list.listId
-                }, null);
+                        list.listId
+                }, null
+        );
         if (listItems == null) {
             return;
         }
@@ -501,7 +482,6 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         int DIRECTORS = 13;
         int RATING = 14;
         int LAST_EDITED = 15;
-
     }
 
     public interface ListsQuery {
@@ -529,4 +509,9 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         int TYPE = 3;
     }
 
+    public interface ShowStatus {
+        int CONTINUING = 1;
+        int ENDED = 0;
+        int UNKNOWN = -1;
+    }
 }

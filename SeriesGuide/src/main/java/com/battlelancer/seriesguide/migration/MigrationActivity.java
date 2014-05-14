@@ -17,7 +17,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.battlelancer.seriesguide.dataliberation.JsonExportTask;
 import com.battlelancer.seriesguide.dataliberation.OnTaskFinishedListener;
 import com.battlelancer.seriesguide.provider.SeriesContract;
-import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.seriesguide.R;
@@ -61,7 +60,7 @@ public class MigrationActivity extends SherlockFragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // set a theme based on user preference
-        setTheme(SeriesGuidePreferences.THEME);
+        setTheme(R.style.SeriesGuideTheme);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_migration);
@@ -93,7 +92,7 @@ public class MigrationActivity extends SherlockFragmentActivity
                 // backup shows
                 mTask = new JsonExportTask(MigrationActivity.this, MigrationActivity.this,
                         MigrationActivity.this,
-                        true, false);
+                        true);
                 mTask.execute();
 
                 mProgressBar.setVisibility(View.VISIBLE);
@@ -204,7 +203,7 @@ public class MigrationActivity extends SherlockFragmentActivity
     private boolean hasRecentBackup() {
         if (AndroidUtils.isExtStorageAvailable()) {
             // ensure at least show JSON is available
-            File path = JsonExportTask.getExportPath(false);
+            File path = JsonExportTask.getExportPath();
             File backup = new File(path, JsonExportTask.EXPORT_JSON_FILE_SHOWS);
             if (backup.exists() && backup.canRead()) {
                 // not older than 24 hours?
