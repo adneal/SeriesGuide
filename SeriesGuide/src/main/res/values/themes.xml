@@ -8,6 +8,7 @@
 
         <item name="android:colorBackground">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="custom_list_selector">@drawable/list_selector_sg</item>
 
         <!-- System widgets (ABS) -->
         <item name="dropDownListViewStyle">@style/DropDownListView</item>
