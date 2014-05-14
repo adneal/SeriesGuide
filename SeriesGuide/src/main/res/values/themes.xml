@@ -8,7 +8,6 @@
 
         <item name="android:colorBackground">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="custom_list_selector">@drawable/list_selector_sg</item>
 
         <!-- System widgets (ABS) -->
         <item name="dropDownListViewStyle">@style/DropDownListView</item>
@@ -21,10 +20,7 @@
 
         <!-- Action bar (ABS) -->
         <item name="actionBarStyle">@style/ActionBar</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabStyle</item>
         <item name="actionBarTabTextStyle">@style/ActionBarTabTextStyle</item>
-        <item name="actionBarItemBackground">@drawable/list_selector_sg</item>
-        <item name="actionDropDownStyle">@style/DropDownNav</item>
 
         <!-- Colors -->
         <item name="textColorSgDefault">@color/text_default</item>
@@ -45,14 +41,11 @@
 
         <!-- Drawables -->
         <item name="drawableDivider">@drawable/divider</item>
-        <item name="drawableDropdown">@drawable/ic_action_contextmenu</item>
     </style>
 
     <style name="SeriesGuideBaseTheme" parent="Theme.Sherlock">
 
         <!-- System widgets (native) -->
-        <item name="android:editTextStyle">@style/Widget.SeriesGuide.EditText</item>
-        <item name="android:checkboxStyle">@style/Widget.SeriesGuide.CheckBox</item>
         <item name="android:listViewStyle">@style/Widget.SeriesGuide.ListView</item>
         <item name="android:listViewWhiteStyle">@style/Widget.SeriesGuide.ListView.White</item>
     </style>
