@@ -1,5 +1,17 @@
 package com.battlelancer.seriesguide.migration;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.battlelancer.seriesguide.dataliberation.JsonExportTask;
@@ -9,22 +21,6 @@ import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.seriesguide.R;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.io.File;
 
 /**
@@ -32,12 +28,12 @@ import java.io.File;
  * SeriesGuide X a backup assistant and install+launch the free version assistant is shown.
  * When using any other version an import assistant is shown.
  */
-public class MigrationActivity extends SherlockFragmentActivity implements JsonExportTask.OnTaskProgressListener, OnTaskFinishedListener {
+public class MigrationActivity extends SherlockFragmentActivity
+        implements JsonExportTask.OnTaskProgressListener, OnTaskFinishedListener {
 
-    private static final String KEY_MIGRATION_OPT_OUT = "com.battlelancer.seriesguide.migration.optout";
-    private static final String MARKETLINK_HTTP = "http://play.google.com/store/apps/details?id=com.battlelancer.seriesguide";
+    private static final String MARKETLINK_HTTP
+            = "http://play.google.com/store/apps/details?id=com.battlelancer.seriesguide";
     private static final String PACKAGE_SERIESGUIDE = "com.battlelancer.seriesguide";
-    private boolean mIsX;
     private ProgressBar mProgressBar;
     private Button mButtonBackup;
     private Button mButtonLaunch;
@@ -62,14 +58,6 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
         }
     };
 
-    public static boolean isQualifiedForMigration(Context context) {
-        if (Utils.getChannel(context) != Utils.SGChannel.X) {
-            return false;
-        }
-        return !PreferenceManager.getDefaultSharedPreferences(context).getBoolean(KEY_MIGRATION_OPT_OUT,
-                false);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // set a theme based on user preference
@@ -77,8 +65,6 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_migration);
-
-        mIsX = Utils.getChannel(this) == Utils.SGChannel.X;
 
         setupActionBar();
         setupViews();
@@ -97,7 +83,8 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
          * Change from backup to import tool whether we use X or any other version (internal beta,
          * free).
          */
-        mTextViewBackupInstructions = (TextView) findViewById(R.id.textViewMigrationBackupInstructions);
+        mTextViewBackupInstructions = (TextView) findViewById(
+                R.id.textViewMigrationBackupInstructions);
 
         mButtonBackup = (Button) findViewById(R.id.buttonMigrationExport);
         mButtonBackup.setOnClickListener(new View.OnClickListener() {
@@ -115,15 +102,18 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
             }
         });
 
-        mTextViewLaunchInstructions = (TextView) findViewById(R.id.textViewMigrationLaunchInstructions);
+        mTextViewLaunchInstructions = (TextView) findViewById(
+                R.id.textViewMigrationLaunchInstructions);
         mButtonLaunch = (Button) findViewById(R.id.buttonMigrationLaunch);
 
-        findViewById(R.id.buttonMigrationHideLauncher).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideLauncherIcon();
-            }
-        });
+        findViewById(R.id.buttonMigrationHideLauncher).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        hideLauncherIcon();
+                    }
+                }
+        );
     }
 
     @Override
@@ -144,20 +134,19 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
     }
 
     private void validateLaunchStep() {
-        if (!mIsX) {
-            // don't show launcher if importing
-            setLauncherVisibility(false);
-            return;
-        }
-
         // check if SeriesGuide is already installed
-        mLaunchIntentForPackage = getPackageManager().getLaunchIntentForPackage(PACKAGE_SERIESGUIDE);
+        PackageManager packageManager = getPackageManager();
+        mLaunchIntentForPackage = packageManager == null ? null
+                : packageManager.getLaunchIntentForPackage(PACKAGE_SERIESGUIDE);
         boolean isSeriesGuideInstalled = mLaunchIntentForPackage != null;
 
         // prepare next step
-        mTextViewLaunchInstructions.setText(isSeriesGuideInstalled ? R.string.migration_launch : R.string.migration_install);
-        mButtonLaunch.setText(isSeriesGuideInstalled ? R.string.migration_action_launch : R.string.migration_action_install);
-        mButtonLaunch.setOnClickListener(isSeriesGuideInstalled ? mSeriesGuideLaunchListener : mSeriesGuideInstallListener);
+        mTextViewLaunchInstructions.setText(
+                isSeriesGuideInstalled ? R.string.migration_launch : R.string.migration_install);
+        mButtonLaunch.setText(isSeriesGuideInstalled ? R.string.migration_action_launch
+                : R.string.migration_action_install);
+        mButtonLaunch.setOnClickListener(
+                isSeriesGuideInstalled ? mSeriesGuideLaunchListener : mSeriesGuideInstallListener);
 
         // decide whether to show next step
         boolean hasShows = hasShows();
@@ -186,7 +175,7 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
         if (mProgressBar == null) {
             return;
         }
-        mProgressBar.setIndeterminate(values[0] == values[1]);
+        mProgressBar.setIndeterminate(values[0].equals(values[1]));
         mProgressBar.setMax(values[0]);
         mProgressBar.setProgress(values[1]);
     }
@@ -200,7 +189,7 @@ public class MigrationActivity extends SherlockFragmentActivity implements JsonE
 
     private boolean hasShows() {
         final Cursor shows = getContentResolver().query(SeriesContract.Shows.CONTENT_URI,
-                new String[]{SeriesContract.Shows._ID}, null, null, null);
+                new String[] { SeriesContract.Shows._ID }, null, null, null);
         if (shows != null) {
             boolean hasShows = shows.getCount() > 0;
             shows.close();

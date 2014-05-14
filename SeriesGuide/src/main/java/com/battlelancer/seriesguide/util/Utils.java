@@ -17,13 +17,12 @@
 
 package com.battlelancer.seriesguide.util;
 
-import com.uwetrottmann.seriesguide.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.widget.Toast;
-
+import com.uwetrottmann.seriesguide.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,8 +30,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class Utils {
-
-    private static final String TAG = "Utils";
 
     private static final String TIMEZONE_ALWAYS_PST = "GMT-08:00";
 
@@ -63,34 +60,10 @@ public class Utils {
             }
 
             return dayCal.getTimeInMillis();
-
         } catch (ParseException e) {
             // we just return -1 then
             return -1;
         }
-    }
-
-
-    public enum SGChannel {
-        STABLE("com.battlelancer.seriesguide"), BETA("com.battlelancer.seriesguide.beta"), X(
-                "com.battlelancer.seriesguide.x");
-
-        String packageName;
-
-        private SGChannel(String packageName) {
-            this.packageName = packageName;
-        }
-    }
-
-    public static SGChannel getChannel(Context context) {
-        String thisPackageName = context.getApplicationContext().getPackageName();
-        if (thisPackageName.equals(SGChannel.BETA.packageName)) {
-            return SGChannel.BETA;
-        }
-        if (thisPackageName.equals(SGChannel.X.packageName)) {
-            return SGChannel.X;
-        }
-        return SGChannel.STABLE;
     }
 
     /**
@@ -100,12 +73,13 @@ public class Utils {
      * <br>
      * This may happen if e.g. the web browser has been disabled through
      * restricted profiles.
-     * 
+     *
      * @return Whether there was an {@link Activity} to handle the given
-     *         {@link Intent}.
+     * {@link Intent}.
      */
     public static boolean tryStartActivity(Context context, Intent intent, boolean displayError) {
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
+        PackageManager packageManager = context.getPackageManager();
+        if (packageManager != null && intent.resolveActivity(packageManager) != null) {
             context.startActivity(intent);
             return true;
         } else if (displayError) {
@@ -113,5 +87,4 @@ public class Utils {
         }
         return false;
     }
-
 }
