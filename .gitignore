@@ -1,5 +1,4 @@
-﻿dist
-analytics.xml
+﻿# Specific files to exclude
 keys.xml
 *.keystore
 
@@ -50,3 +49,8 @@ $RECYCLE.BIN/
 .gradle/
 build/
 out/
+
+#Maven
+target
+release.properties
+pom.xml.*
