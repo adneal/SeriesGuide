@@ -11,7 +11,7 @@
   <string name="migration_action_backup">Tag backup af serier</string>
   <string name="migration_install">Tryk nedenfor for at installere den gratis version af SeriesGuide.</string>
   <string name="migration_action_install">Installer SeriesGuide</string>
-  <string name="migration_launch">Touch below and once in SeriesGuide touch Menu, then Migrate.</string>
+  <string name="migration_launch">Tryk nedenfor en gang, og når du er i SeriesGuide, tryk på Menu og derefter Migrér.</string>
   <string name="migration_action_launch">Åben Seriesguide og derefter Migrer</string>
   <string name="action_migrate">Migrer fra X</string>
   <string name="migration_action_hide">Fjern ikon fra app skuffen</string>
