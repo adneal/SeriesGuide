@@ -174,8 +174,8 @@
 
     <!-- ABS -->
     <style name="ActionBar" parent="Widget.Sherlock.ActionBar">
-        <item name="background">@drawable/sg_actionbar_background</item>
-        <item name="android:background">@drawable/sg_actionbar_background</item>
+        <item name="background">@drawable/actionbar_background_sg</item>
+        <item name="android:background">@drawable/actionbar_background_sg</item>
         <item name="titleTextStyle">@style/TextAppearance.ActionBar</item>
         <item name="android:titleTextStyle" tools:targetApi="honeycomb">@style/TextAppearance.ActionBar</item>
     </style>
