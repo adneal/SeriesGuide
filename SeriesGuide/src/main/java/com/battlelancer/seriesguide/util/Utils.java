@@ -17,7 +17,6 @@
 
 package com.battlelancer.seriesguide.util;
 
-import com.battlelancer.seriesguide.Constants;
 import com.uwetrottmann.seriesguide.R;
 
 import android.app.Activity;
@@ -37,9 +36,11 @@ public class Utils {
 
     private static final String TIMEZONE_ALWAYS_PST = "GMT-08:00";
 
+    private static final SimpleDateFormat TVDB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
     public static long buildEpisodeAirtime(String tvdbDateString, long airtime) {
         TimeZone pacific = TimeZone.getTimeZone(TIMEZONE_ALWAYS_PST);
-        SimpleDateFormat tvdbDateFormat = Constants.theTVDBDateFormat;
+        SimpleDateFormat tvdbDateFormat = TVDB_DATE_FORMAT;
         tvdbDateFormat.setTimeZone(pacific);
 
         try {
