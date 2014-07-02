@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.uwetrottmann.seriesguide">
+    package="com.uwetrottmann.seriesguide"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
-        android:required="false" >
-    </uses-feature>
+        android:required="false" />
 
     <application
-            android:name="com.battlelancer.seriesguide.SeriesGuideApplication"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name"
-            android:theme="@style/SeriesGuideTheme">
+        android:allowBackup="true"
+        android:name="com.battlelancer.seriesguide.SeriesGuideApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/SeriesGuideTheme">
 
         <!-- Launch activity -->
-        <activity android:name="com.battlelancer.seriesguide.migration.MigrationActivity" >
+        <activity android:name="com.battlelancer.seriesguide.migration.MigrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Content provider -->
+        <provider
+            android:name="com.battlelancer.seriesguide.provider.SeriesGuideProvider"
+            android:authorities="com.battlelancer.seriesguide.x.provider"
+            android:exported="true" />
     </application>
 
 </manifest>
