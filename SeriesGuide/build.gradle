@@ -1,8 +1,8 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
         minSdkVersion 8
@@ -17,7 +17,7 @@ android {
 
     productFlavors {
         x {
-            packageName "com.battlelancer.seriesguide.x"
+            applicationId "com.battlelancer.seriesguide.x"
             versionCode 168
             versionName "x-pass"
         }
