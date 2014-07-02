@@ -18,7 +18,7 @@ android {
     productFlavors {
         x {
             applicationId "com.battlelancer.seriesguide.x"
-            versionCode 168
+            versionCode 169
             versionName "x-pass"
         }
     }
