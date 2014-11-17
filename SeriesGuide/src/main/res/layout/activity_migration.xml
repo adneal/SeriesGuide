@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.battlelancer.seriesguide.migration.MigrationActivity">
 
     <LinearLayout
         style="@style/Page.Centered"
         android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_padding"
             android:text="@string/migration_header"
-            android:textAppearance="@style/TextAppearance.Large.Light" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/large_padding"
             android:text="@string/migration_description"
-            android:textAppearance="@style/TextAppearance" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/textViewMigrationLaunchInstructions"
@@ -28,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/large_padding"
             android:text="@string/migration_install"
-            android:textAppearance="@style/TextAppearance"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:visibility="gone" />
 
         <Button
@@ -46,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/large_padding"
             android:text="@string/migration_backup"
-            android:textAppearance="@style/TextAppearance" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <ProgressBar
             android:id="@+id/progressBarMigration"
@@ -68,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/large_padding"
-            android:background="?attr/colorDivider" />
+            android:background="@color/divider" />
 
         <Button
             android:id="@+id/buttonMigrationHideLauncher"

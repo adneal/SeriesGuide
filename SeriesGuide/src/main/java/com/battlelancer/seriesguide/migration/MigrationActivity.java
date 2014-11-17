@@ -6,14 +6,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.battlelancer.seriesguide.dataliberation.JsonExportTask;
 import com.battlelancer.seriesguide.dataliberation.OnTaskFinishedListener;
 import com.battlelancer.seriesguide.provider.SeriesContract;
@@ -27,7 +27,7 @@ import java.io.File;
  * SeriesGuide X a backup assistant and install+launch the free version assistant is shown.
  * When using any other version an import assistant is shown.
  */
-public class MigrationActivity extends SherlockFragmentActivity
+public class MigrationActivity extends ActionBarActivity
         implements JsonExportTask.OnTaskProgressListener, OnTaskFinishedListener {
 
     private static final String MARKETLINK_HTTP
