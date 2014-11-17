@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         minSdkVersion 8
@@ -25,7 +25,15 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('release.keystore')
+            if(rootProject.file('keystore.properties').exists()) {
+                def props = new Properties()
+                props.load(new FileInputStream(rootProject.file('keystore.properties')))
+
+                storeFile = file(props['storeFile'])
+                storePassword = props['storePassword']
+                keyAlias = props['keyAlias']
+                keyPassword = props['keyPassword']
+            }
         }
     }
 
