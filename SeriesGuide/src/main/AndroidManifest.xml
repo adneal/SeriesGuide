@@ -25,12 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Content provider -->
-        <provider
-            android:name="com.battlelancer.seriesguide.provider.SeriesGuideProvider"
-            android:authorities="com.battlelancer.seriesguide.x.provider"
-            android:exported="true" />
     </application>
 
 </manifest>
