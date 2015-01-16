@@ -17,47 +17,29 @@
 
 package com.battlelancer.seriesguide;
 
-import com.uwetrottmann.androidutils.AndroidUtils;
-import com.uwetrottmann.seriesguide.BuildConfig;
-
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.ContentProvider;
+import android.os.Build;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.os.StrictMode.VmPolicy;
+import com.uwetrottmann.seriesguide.BuildConfig;
 
-/**
- * Initializes settings and services and on pre-ICS implements actions for low
- * memory state.
- * 
- * @author Uwe Trottmann
- */
 public class SeriesGuideApplication extends Application {
-
-    /**
-     * The content authority used to identify the SeriesGuide
-     * {@link ContentProvider}
-     */
-    public static String CONTENT_AUTHORITY;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        // Set provider authority
-        CONTENT_AUTHORITY = getPackageName() + ".provider";
-
-        // Enable StrictMode
         enableStrictMode();
     }
 
     /**
-     * Used to enable {@link StrictMode} during production
+     * Used to enable {@link StrictMode} for debug builds.
      */
     @SuppressLint("NewApi")
     public static void enableStrictMode() {
-        if (!BuildConfig.DEBUG || !AndroidUtils.isGingerbreadOrHigher()) {
+        if (!BuildConfig.DEBUG || Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
             return;
         }
         // Enable StrictMode
@@ -70,10 +52,9 @@ public class SeriesGuideApplication extends Application {
         final VmPolicy.Builder vmPolicyBuilder = new VmPolicy.Builder();
         vmPolicyBuilder.detectAll();
         vmPolicyBuilder.penaltyLog();
-        if (AndroidUtils.isJellyBeanOrHigher()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             vmPolicyBuilder.detectLeakedRegistrationObjects();
         }
         StrictMode.setVmPolicy(vmPolicyBuilder.build());
     }
-
 }
