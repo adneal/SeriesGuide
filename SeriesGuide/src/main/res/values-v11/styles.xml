@@ -7,9 +7,4 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Button</item>
     </style>
 
-    <style name="ProgressBar" parent="android:Widget.Holo.ProgressBar.Horizontal">
-        <item name="android:progressDrawable">@drawable/progress_horizontal_sg</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sg</item>
-    </style>
-
 </resources>

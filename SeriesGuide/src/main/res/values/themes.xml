@@ -16,7 +16,6 @@
 
         <!-- System widgets (native) -->
         <item name="android:buttonStyle">@style/Widget.SeriesGuide.Button</item>
-        <item name="android:progressBarStyleHorizontal">@style/ProgressBar</item>
 
     </style>
 
