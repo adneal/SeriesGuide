@@ -3,12 +3,7 @@
 
     <string name="app_not_available">No app available to handle this.</string>
 
-    <!-- Backup and Restore -->
-    <string name="backup_failed_nosd">Can\'t backup. The backup folder is not available.</string>
-    <string name="backup_success">Backup successful.</string>
-    <string name="backup_failed">Backup failed.</string>
-
-    <!-- SeriesGuide X deprecation -->
+    <!-- X Pass instructions -->
     <string name="title_thanks">Thanks for supporting SeriesGuide!</string>
     <string name="description_x_pass">Keep this app installed to unlock all features in SeriesGuide.</string>
     <string name="migration_install">Touch below to install SeriesGuide.</string>
