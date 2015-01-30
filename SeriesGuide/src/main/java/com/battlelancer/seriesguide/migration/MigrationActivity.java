@@ -237,10 +237,7 @@ public class MigrationActivity extends ActionBarActivity {
         intent.putExtra(android.content.Intent.EXTRA_TEXT, messageBody);
 
         Intent chooser = Intent.createChooser(intent, getString(R.string.action_report_error));
-        // Verify the intent will resolve to at least one activity
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(chooser);
-        }
+        Utils.tryStartActivity(this, chooser, true);
     }
 
     private void setProgressVisibility(boolean visible) {
