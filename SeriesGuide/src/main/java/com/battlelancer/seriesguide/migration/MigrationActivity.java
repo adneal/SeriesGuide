@@ -18,6 +18,22 @@ import com.uwetrottmann.seriesguide.R;
  */
 public class MigrationActivity extends ActionBarActivity {
 
+    private static final String BASE64_PUBLIC_KEY =
+            "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVrsSyPfNLUE6ng68B/gPqnpUxlyPhLIX4sxqXT"
+                    + "yylff7dWeyqrDOixzVWmEKb8BSRQVWPPR7RDF69sWO8qfsKTPJ5AzjFFc2NNfnjmvXmZnrVHrJKb"
+                    + "xtIRLG/cxoiYu7q5vTbMF3YlwcxxghAZxBnZCxRphR/XnHxPQadK5YnemlGencFro3TnnbVnwlDU"
+                    + "6La71QMI1rxIFM/xgB4uKs8CNyAXcwjHf+9X2fLs/afspXy/USS+bhA0zuYNakLJy1l6PlfZr4Jh"
+                    + "nlUV0d8U4oazm3k99wF0BFOnI53hKp42kgLE8MKgB5cEIaVLJnbdyl2vwd+XYo6NASjKgpl7xxwI"
+                    + "DAQAB";
+
+    // Generate your own 20 random bytes, and put them here.
+    private static final byte[] SALT = new byte[] {
+            -28, -80, -102, 55, 28,
+            98, -109, 101, -73, 77,
+            63, -74, 110, 81, 18,
+            -43, 48, -69, 67, -29
+    };
+
     private static final String MARKETLINK_HTTP
             = "http://play.google.com/store/apps/details?id=com.battlelancer.seriesguide";
     private static final String PACKAGE_SERIESGUIDE = "com.battlelancer.seriesguide";
