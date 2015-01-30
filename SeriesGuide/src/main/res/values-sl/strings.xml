@@ -10,4 +10,10 @@
   <string name="migration_action_launch">Open SeriesGuide</string>
   <string name="migration_action_hide">Remove icon from app drawer</string>
   <string name="hide_confirmation">Icon removed. Re-install X Pass to restore it.</string>
+  <string name="licence_check_error">Application error: %1$s</string>
+  <string name="action_report_error">Contact support</string>
+  <string name="license_check_retry">Unable to validate license. Connect to a network or try to install again.</string>
+  <string name="action_license_check">Check license</string>
+  <string name="licence_check_fail">This application is not licensed. Please purchase it from Google Play.</string>
+  <string name="action_buy_xpass">Get X Pass</string>
 </resources>

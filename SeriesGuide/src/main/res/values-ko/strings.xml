@@ -10,4 +10,10 @@
   <string name="migration_action_launch">Open SeriesGuide</string>
   <string name="migration_action_hide">앱드로워에서 아이콘 제거</string>
   <string name="hide_confirmation">아이콘을 제거하였습니다. 시리즈가이드 X 를 재설치하면 복구할 수 있습니다.</string>
+  <string name="licence_check_error">Application error: %1$s</string>
+  <string name="action_report_error">Contact support</string>
+  <string name="license_check_retry">Unable to validate license. Connect to a network or try to install again.</string>
+  <string name="action_license_check">Check license</string>
+  <string name="licence_check_fail">This application is not licensed. Please purchase it from Google Play.</string>
+  <string name="action_buy_xpass">X 패스 얻기</string>
 </resources>

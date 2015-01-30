@@ -10,4 +10,10 @@
   <string name="migration_action_launch">Avaa SeriesGuide</string>
   <string name="migration_action_hide">Poista kuvake sovellusluettelosta</string>
   <string name="hide_confirmation">Kuvake poistettu. Asenna X-passi uudelleen palauttaaksesi sen.</string>
+  <string name="licence_check_error">Application error: %1$s</string>
+  <string name="action_report_error">Contact support</string>
+  <string name="license_check_retry">Unable to validate license. Connect to a network or try to install again.</string>
+  <string name="action_license_check">Check license</string>
+  <string name="licence_check_fail">This application is not licensed. Please purchase it from Google Play.</string>
+  <string name="action_buy_xpass">Hanki X-passi</string>
 </resources>

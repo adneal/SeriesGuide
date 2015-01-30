@@ -10,4 +10,10 @@
   <string name="migration_action_launch">SeriesGuide starten</string>
   <string name="migration_action_hide">Symbol aus \'Alle Apps\' entfernen</string>
   <string name="hide_confirmation">Symbol entfernt. Installieren Sie X neu, um es wiederherzustellen.</string>
+  <string name="licence_check_error">Anwendungsfehler: %1$s</string>
+  <string name="action_report_error">Unterstützung anfordern</string>
+  <string name="license_check_retry">Nicht in der Lage, die Lizenz zu überprüfen. Stellen Sie eine Netzwerkverbindung her, oder versuchen Sie erneut zu installieren.</string>
+  <string name="action_license_check">Lizenz überprüfen</string>
+  <string name="licence_check_fail">Diese Anwendung ist nicht lizenziert. Bitte kaufen Sie sie von Google Play.</string>
+  <string name="action_buy_xpass">X Pass holen</string>
 </resources>
