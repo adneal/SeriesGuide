@@ -20,4 +20,5 @@
     <string name="action_license_check">Check license</string>
     <string name="licence_check_fail">This application is not licensed. Please purchase it from Google Play.</string>
     <string name="action_buy_xpass">Get X Pass</string>
+
 </resources>
