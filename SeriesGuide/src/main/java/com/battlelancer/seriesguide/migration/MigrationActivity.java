@@ -4,14 +4,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.battlelancer.seriesguide.licensing.AESObfuscator;
+import com.battlelancer.seriesguide.licensing.LicenseChecker;
+import com.battlelancer.seriesguide.licensing.Policy;
+import com.battlelancer.seriesguide.licensing.ServerManagedPolicy;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.seriesguide.R;
+import org.apache.http.protocol.HTTP;
 
 /**
  * Helps the user install or open SeriesGuide.
@@ -34,14 +41,22 @@ public class MigrationActivity extends ActionBarActivity {
             -43, 48, -69, 67, -29
     };
 
-    private static final String MARKETLINK_HTTP
+    private static final String MARKETLINK_SERIESGUIDE_HTTP
             = "http://play.google.com/store/apps/details?id=com.battlelancer.seriesguide";
+    private static final String MARKETLINK_XPASS_HTTP
+            = "http://play.google.com/store/apps/details?id=com.battlelancer.seriesguide.x";
     private static final String PACKAGE_SERIESGUIDE = "com.battlelancer.seriesguide";
+    private static final String SUPPORT_MAIL = "uwe@seriesgui.de";
 
     private Button mButtonLaunch;
-    private TextView mTextViewLaunchInstructions;
+    private TextView mTextViewInstructions;
+    private View mProgressBar;
 
     private Intent mLaunchIntentForPackage;
+
+    private Handler mHandler;
+    private LicenseChecker mChecker;
+    private LicenseCheckerCallback mLicenseCheckerCallback;
 
     private View.OnClickListener mSeriesGuideLaunchListener = new View.OnClickListener() {
         @Override
@@ -51,11 +66,25 @@ public class MigrationActivity extends ActionBarActivity {
             }
         }
     };
+    private View.OnClickListener mRetryLicenseCheckListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            doLicenseCheck();
+        }
+    };
     private View.OnClickListener mSeriesGuideInstallListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             // launch SeriesGuide Play Store page
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKETLINK_HTTP));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKETLINK_SERIESGUIDE_HTTP));
+            Utils.tryStartActivity(MigrationActivity.this, intent, true);
+        }
+    };
+    private View.OnClickListener mXPassInstallListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            // launch X Pass Play Store page
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKETLINK_XPASS_HTTP));
             Utils.tryStartActivity(MigrationActivity.this, intent, true);
         }
     };
@@ -70,6 +99,8 @@ public class MigrationActivity extends ActionBarActivity {
 
         setupActionBar();
         setupViews();
+
+        setupLicenseCheck();
     }
 
     private void setupActionBar() {
@@ -79,9 +110,10 @@ public class MigrationActivity extends ActionBarActivity {
     }
 
     private void setupViews() {
-        mTextViewLaunchInstructions = (TextView) findViewById(
+        mTextViewInstructions = (TextView) findViewById(
                 R.id.textViewMigrationLaunchInstructions);
         mButtonLaunch = (Button) findViewById(R.id.buttonMigrationLaunch);
+        mProgressBar = findViewById(R.id.progressBarLicenseCheck);
 
         findViewById(R.id.buttonMigrationHideLauncher).setOnClickListener(
                 new View.OnClickListener() {
@@ -91,28 +123,90 @@ public class MigrationActivity extends ActionBarActivity {
                     }
                 }
         );
+
+        setProgressVisibility(true);
+    }
+
+    private void setupLicenseCheck() {
+        // Might want to add further data in the future
+        String deviceId = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        mHandler = new Handler();
+        mLicenseCheckerCallback = new LicenseCheckerCallback();
+
+        // Construct the LicenseChecker with a Policy.
+        mChecker = new LicenseChecker(
+                this, new ServerManagedPolicy(this,
+                new AESObfuscator(SALT, getPackageName(), deviceId)),
+                BASE64_PUBLIC_KEY
+        );
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        validateLaunchStep();
+
+        doLicenseCheck();
     }
 
-    private void validateLaunchStep() {
-        // check if SeriesGuide is already installed
-        PackageManager packageManager = getPackageManager();
-        mLaunchIntentForPackage = packageManager == null ? null
-                : packageManager.getLaunchIntentForPackage(PACKAGE_SERIESGUIDE);
-        boolean isSeriesGuideInstalled = mLaunchIntentForPackage != null;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        // enable install or open functionality
-        mTextViewLaunchInstructions.setText(
-                isSeriesGuideInstalled ? R.string.migration_launch : R.string.migration_install);
-        mButtonLaunch.setText(isSeriesGuideInstalled ? R.string.migration_action_launch
-                : R.string.migration_action_install);
-        mButtonLaunch.setOnClickListener(
-                isSeriesGuideInstalled ? mSeriesGuideLaunchListener : mSeriesGuideInstallListener);
+        mChecker.onDestroy();
+    }
+
+    private void doLicenseCheck() {
+        setProgressVisibility(true);
+        mChecker.checkAccess(mLicenseCheckerCallback);
+    }
+
+    private void updateViews(final String result) {
+        switch (result) {
+            case LicenseCheckerCallback.FAIL:
+                // not licensed
+                mTextViewInstructions.setText(R.string.licence_check_fail);
+                mButtonLaunch.setText(R.string.action_buy_xpass);
+                mButtonLaunch.setOnClickListener(mXPassInstallListener);
+                break;
+            case LicenseCheckerCallback.RETRY:
+                // license check failed due to network issues
+                mTextViewInstructions.setText(R.string.license_check_retry);
+                mButtonLaunch.setText(R.string.action_license_check);
+                mButtonLaunch.setOnClickListener(mRetryLicenseCheckListener);
+                break;
+            case LicenseCheckerCallback.ALLOW:
+                // licensed
+                // check if SeriesGuide is already installed
+                PackageManager packageManager = getPackageManager();
+                mLaunchIntentForPackage = packageManager == null ? null
+                        : packageManager.getLaunchIntentForPackage(PACKAGE_SERIESGUIDE);
+                boolean isSeriesGuideInstalled = mLaunchIntentForPackage != null;
+
+                // enable install or open functionality
+                mTextViewInstructions.setText(
+                        isSeriesGuideInstalled ? R.string.migration_launch
+                                : R.string.migration_install);
+                mButtonLaunch.setText(isSeriesGuideInstalled ? R.string.migration_action_launch
+                        : R.string.migration_action_install);
+                mButtonLaunch.setOnClickListener(
+                        isSeriesGuideInstalled ? mSeriesGuideLaunchListener
+                                : mSeriesGuideInstallListener);
+                break;
+            default:
+                // application error when checking for license
+                final String errorMessage = getString(R.string.licence_check_error, result);
+                mTextViewInstructions.setText(errorMessage);
+                mButtonLaunch.setText(R.string.action_report_error);
+                mButtonLaunch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendEmail(errorMessage);
+                    }
+                });
+                break;
+        }
     }
 
     private void hideLauncherIcon() {
@@ -123,5 +217,70 @@ public class MigrationActivity extends ActionBarActivity {
                     PackageManager.DONT_KILL_APP);
             Toast.makeText(this, R.string.hide_confirmation, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void sendEmail(String messageBody) {
+        final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.setType(HTTP.PLAIN_TEXT_TYPE);
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {
+                SUPPORT_MAIL
+        });
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "X Pass Error");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, messageBody);
+
+        Intent chooser = Intent.createChooser(intent, getString(R.string.action_report_error));
+        // Verify the intent will resolve to at least one activity
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
+        }
+    }
+
+    private void setProgressVisibility(boolean visible) {
+        mButtonLaunch.setVisibility(visible ? View.GONE : View.VISIBLE);
+        mProgressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private class LicenseCheckerCallback
+            implements com.battlelancer.seriesguide.licensing.LicenseCheckerCallback {
+        public static final String ALLOW = "allow";
+        public static final String RETRY = "retry";
+        public static final String FAIL = "fail";
+
+        public void allow(int policyReason) {
+            if (isFinishing()) {
+                // Don't update UI if Activity is finishing.
+                return;
+            }
+            // Should allow user access.
+            postResult("allow");
+        }
+
+        public void dontAllow(int policyReason) {
+            if (isFinishing()) {
+                // Don't update UI if Activity is finishing.
+                return;
+            }
+            postResult(policyReason == Policy.RETRY ? RETRY : FAIL);
+        }
+
+        public void applicationError(int errorCode) {
+            if (isFinishing()) {
+                // Don't update UI if Activity is finishing.
+                return;
+            }
+            // This is a polite way of saying the developer made a mistake
+            // while setting up or calling the license checker library.
+            // Please examine the error code and fix the error.
+            postResult(String.valueOf(errorCode));
+        }
+    }
+
+    private void postResult(final String result) {
+        mHandler.post(new Runnable() {
+            public void run() {
+                updateViews(result);
+                setProgressVisibility(false);
+            }
+        });
     }
 }

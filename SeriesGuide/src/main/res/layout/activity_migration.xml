@@ -31,16 +31,20 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/large_padding"
             android:text="@string/migration_install"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:visibility="visible" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <ProgressBar
+            android:id="@+id/progressBarLicenseCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:id="@+id/buttonMigrationLaunch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/migration_action_install"
-            android:visibility="visible" />
+            android:text="@string/migration_action_install" />
 
         <View
             android:layout_width="match_parent"
