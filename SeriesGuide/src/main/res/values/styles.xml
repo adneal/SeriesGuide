@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Text appearance -->
+    <style name="TextAppearance.SeriesGuide.Red" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">#FF1744</item>
+    </style>
+
     <!-- Widget styles -->
     <style name="Widget"/>
 

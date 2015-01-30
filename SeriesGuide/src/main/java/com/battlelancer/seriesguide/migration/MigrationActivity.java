@@ -167,12 +167,16 @@ public class MigrationActivity extends ActionBarActivity {
             case LicenseCheckerCallback.FAIL:
                 // not licensed
                 mTextViewInstructions.setText(R.string.licence_check_fail);
+                mTextViewInstructions.setTextAppearance(this,
+                        R.style.TextAppearance_SeriesGuide_Red);
                 mButtonLaunch.setText(R.string.action_buy_xpass);
                 mButtonLaunch.setOnClickListener(mXPassInstallListener);
                 break;
             case LicenseCheckerCallback.RETRY:
                 // license check failed due to network issues
                 mTextViewInstructions.setText(R.string.license_check_retry);
+                mTextViewInstructions.setTextAppearance(this,
+                        R.style.TextAppearance_SeriesGuide_Red);
                 mButtonLaunch.setText(R.string.action_license_check);
                 mButtonLaunch.setOnClickListener(mRetryLicenseCheckListener);
                 break;
@@ -188,6 +192,8 @@ public class MigrationActivity extends ActionBarActivity {
                 mTextViewInstructions.setText(
                         isSeriesGuideInstalled ? R.string.migration_launch
                                 : R.string.migration_install);
+                mTextViewInstructions.setTextAppearance(this,
+                        R.style.TextAppearance_AppCompat_Body1);
                 mButtonLaunch.setText(isSeriesGuideInstalled ? R.string.migration_action_launch
                         : R.string.migration_action_install);
                 mButtonLaunch.setOnClickListener(
@@ -198,6 +204,8 @@ public class MigrationActivity extends ActionBarActivity {
                 // application error when checking for license
                 final String errorMessage = getString(R.string.licence_check_error, result);
                 mTextViewInstructions.setText(errorMessage);
+                mTextViewInstructions.setTextAppearance(this,
+                        R.style.TextAppearance_SeriesGuide_Red);
                 mButtonLaunch.setText(R.string.action_report_error);
                 mButtonLaunch.setOnClickListener(new View.OnClickListener() {
                     @Override
