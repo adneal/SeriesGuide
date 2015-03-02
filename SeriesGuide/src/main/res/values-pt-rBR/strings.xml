@@ -10,10 +10,10 @@
   <string name="migration_action_launch">Abrir o SeriesGuide</string>
   <string name="migration_action_hide">Remover o ícone da lista de aplicativos</string>
   <string name="hide_confirmation">Ícone removido. Reinstale o X Pass para mostrá-lo novamente.</string>
-  <string name="licence_check_error">Application error: %1$s</string>
-  <string name="action_report_error">Contact support</string>
-  <string name="license_check_retry">Unable to validate license. Connect to a network or try to install again.</string>
-  <string name="action_license_check">Check license</string>
-  <string name="licence_check_fail">This application is not licensed. Please purchase it from Google Play.</string>
-  <string name="action_buy_xpass">Pegue o X Pass</string>
+  <string name="licence_check_error">Erro no app: %1$s</string>
+  <string name="action_report_error">Contate o suporte</string>
+  <string name="license_check_retry">Não é possível validar a licença. Conecte-se a uma rede ou tente instalar novamente.</string>
+  <string name="action_license_check">Verificar licença</string>
+  <string name="licence_check_fail">Este aplicativo não está licenciado. Por favor, compre-o a partir do Google Play.</string>
+  <string name="action_buy_xpass">Adquira o X Pass</string>
 </resources>
