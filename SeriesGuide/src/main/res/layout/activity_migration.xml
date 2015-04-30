@@ -54,7 +54,7 @@
 
         <Button
             android:id="@+id/buttonMigrationHideLauncher"
-            style="@style/Widget.SeriesGuide.Button.Borderless.Small.Highlight"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/large_padding"
