@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +23,7 @@ import org.apache.http.protocol.HTTP;
 /**
  * Helps the user install or open SeriesGuide.
  */
-public class MigrationActivity extends ActionBarActivity {
+public class MigrationActivity extends AppCompatActivity {
 
     private static final String BASE64_PUBLIC_KEY =
             "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVrsSyPfNLUE6ng68B/gPqnpUxlyPhLIX4sxqXT"
