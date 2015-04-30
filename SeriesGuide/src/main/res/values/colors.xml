@@ -18,13 +18,9 @@
 -->
 <resources>
 
-    <color name="transparent">#00000000</color>
-    <color name="text_blue">#FF0099CC</color>
     <color name="accent_primary">#ff6545a0</color>
     <color name="accent_primary_dark">#ff523991</color>
-    <color name="accent_primary_light">#bb7555B0</color>
     <color name="background">#ff222222</color>
-    <color name="disabled">#80333333</color>
     <color name="divider">#26ffffff</color>
 
 </resources>
