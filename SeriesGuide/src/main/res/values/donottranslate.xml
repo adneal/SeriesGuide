@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SeriesGuide X</string>
+    <string name="title">SeriesGuide X Pass</string>
     <string name="package_name">com.battlelancer.seriesguide.x</string>
 </resources>

@@ -106,6 +106,7 @@ public class MigrationActivity extends AppCompatActivity {
     private void setupActionBar() {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(R.string.title);
         actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
