@@ -18,8 +18,8 @@ android {
     productFlavors {
         x {
             applicationId "com.battlelancer.seriesguide.x"
-            versionCode 174
-            versionName "2.0.3"
+            versionCode 175
+            versionName "2.0.4"
         }
     }
 
