@@ -3,17 +3,17 @@
 <resources>
   <string name="app_not_available">Není k dispozici použitelná aplikace.</string>
   <string name="title_thanks">Díky za podpoření SeriesGuide!</string>
-  <string name="description_x_pass">Nechce tuto aplikaci nainstalovanou kvůli odemčení veškerých funkcí SeriesGuide.</string>
+  <string name="description_x_pass">Pro odemčení všech funkcí SeriesGuide nechte tuto aplikaci nainstalovanou.</string>
   <string name="migration_install">Stiskněte pro instalaci SeriesGuide.</string>
   <string name="migration_action_install">Instalace SeriesGuide</string>
   <string name="migration_launch">Stiskněte pro spuštění SeriesGuide.</string>
   <string name="migration_action_launch">Otevřít SeriesGuide</string>
   <string name="migration_action_hide">Odebrat ikonu ze seznamu aplikací</string>
   <string name="hide_confirmation">Ikona odebrána. Reinstalujte Rozšířenou verzi pro její obnovení.</string>
-  <string name="licence_check_error">Application error: %1$s</string>
-  <string name="action_report_error">Contact support</string>
-  <string name="license_check_retry">Unable to validate license. Connect to a network or try to install again.</string>
-  <string name="action_license_check">Check license</string>
-  <string name="licence_check_fail">This application is not licensed. Please purchase it from Google Play.</string>
+  <string name="licence_check_error">Chyba aplikace: %1$s</string>
+  <string name="action_report_error">Kontaktujte podporu</string>
+  <string name="license_check_retry">Nepodařilo se ověřit licenci. Připojte se k síti nebo zkuste spustit instalaci znovu.</string>
+  <string name="action_license_check">Zkontrolovat licenci</string>
+  <string name="licence_check_fail">Aplikace není licencována. Zakupte prosím aplikaci z Obchodu Play.</string>
   <string name="action_buy_xpass">Získejte Rozšířenou verzi</string>
 </resources>

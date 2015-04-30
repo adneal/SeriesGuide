@@ -9,11 +9,11 @@
   <string name="migration_launch">Pressione o botão para abrir o SeriesGuide.</string>
   <string name="migration_action_launch">Abrir SeriesGuide</string>
   <string name="migration_action_hide">Ocultar o ícone da zona das aplicações</string>
-  <string name="hide_confirmation">Ícone removido. Para o restaurar reinstale o Passe X.</string>
+  <string name="hide_confirmation">Ícone removido. Para o restaurar reinstale o X Pass.</string>
   <string name="licence_check_error">Erro: %1$s</string>
   <string name="action_report_error">Contactar o suporte</string>
   <string name="license_check_retry">Não é possível validar a licença. Conecte-se a uma rede ou tente instalar a aplicação novamente.</string>
   <string name="action_license_check">Verificar licença</string>
-  <string name="licence_check_fail">Esta aplicação não está licenciada. Por favor compre-a no Google Play.</string>
+  <string name="licence_check_fail">Esta aplicação não está licenciada. Por favor, compre-a no Google Play.</string>
   <string name="action_buy_xpass">Obter X Pass</string>
 </resources>

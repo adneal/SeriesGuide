@@ -15,5 +15,5 @@
   <string name="license_check_retry">Nem lehet érvényesíteni az engedélyt. Csatlakozz egy hálózathoz vagy próbáld meg újratelepíteni.</string>
   <string name="action_license_check">Licenc ellenőrzés</string>
   <string name="licence_check_fail">Ez az alkalmazás nem engedélyezett. Kérlek vásárold meg a Google Play áruházban.</string>
-  <string name="action_buy_xpass">Legyen X Passod</string>
+  <string name="action_buy_xpass">X Pass beszerzése</string>
 </resources>
