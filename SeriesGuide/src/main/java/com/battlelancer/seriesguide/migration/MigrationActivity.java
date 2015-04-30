@@ -18,7 +18,6 @@ import com.battlelancer.seriesguide.licensing.Policy;
 import com.battlelancer.seriesguide.licensing.ServerManagedPolicy;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.seriesguide.R;
-import org.apache.http.protocol.HTTP;
 
 /**
  * Helps the user install or open SeriesGuide.
@@ -104,10 +103,12 @@ public class MigrationActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(R.string.title);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(R.string.title);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     private void setupViews() {
@@ -230,7 +231,7 @@ public class MigrationActivity extends AppCompatActivity {
 
     private void sendEmail(String messageBody) {
         final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        intent.setType(HTTP.PLAIN_TEXT_TYPE);
+        intent.setType("text/plain");
         intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {
                 SUPPORT_MAIL
         });
